@@ -27,6 +27,7 @@ type PropsType = {
 }
 
 export const Todolist = React.memo(function (props: PropsType) {
+    console.log("todolist is called")
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);
     },[])
@@ -61,6 +62,14 @@ export const Todolist = React.memo(function (props: PropsType) {
                         props.changeTaskTitle(t.id, newValue, props.id);
                     }
 
+                    let tasksForTodolist = props.tasks
+
+                    if (props.filter === "active") {
+                        tasksForTodolist = props.tasks.filter(t => t.isDone === false);
+                    }
+                    if (props.filter === "completed") {
+                        tasksForTodolist = props.tasks.filter(t => t.isDone === true);
+                    }
 
                     return <div key={t.id} className={t.isDone ? "is-done" : ""}>
                         <Checkbox
