@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
@@ -26,11 +26,10 @@ type PropsType = {
     changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
 }
 
-export const Todolist = React.memo(function (props: PropsType) {
-    console.log("todolist is called")
-    const addTask = useCallback((title: string) => {
+export function Todolist(props: PropsType) {
+    const addTask = (title: string) => {
         props.addTask(title, props.id);
-    },[])
+    }
 
     const removeTodolist = () => {
         props.removeTodolist(props.id);
@@ -62,14 +61,6 @@ export const Todolist = React.memo(function (props: PropsType) {
                         props.changeTaskTitle(t.id, newValue, props.id);
                     }
 
-                    let tasksForTodolist = props.tasks
-
-                    if (props.filter === "active") {
-                        tasksForTodolist = props.tasks.filter(t => t.isDone === false);
-                    }
-                    if (props.filter === "completed") {
-                        tasksForTodolist = props.tasks.filter(t => t.isDone === true);
-                    }
 
                     return <div key={t.id} className={t.isDone ? "is-done" : ""}>
                         <Checkbox
@@ -102,4 +93,6 @@ export const Todolist = React.memo(function (props: PropsType) {
             </Button>
         </div>
     </div>
-})
+}
+
+
