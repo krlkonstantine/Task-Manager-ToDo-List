@@ -39,7 +39,7 @@ export const Todolist = memo((props: PropsType) => {
 
     const changeTodolistTitle = useCallback((title: string) => {
         props.changeTodolistTitle(props.id, title);
-    }, [props.id,props.changeTodolistTitle])
+    }, [props.id, props.changeTodolistTitle])
 
     const onAllClickHandler = useCallback(() => {
         props.changeFilter("all", props.id)
@@ -60,13 +60,13 @@ export const Todolist = memo((props: PropsType) => {
         tasksForTodolist = tasksForTodolist.filter(t => t.isDone);
     }
 
-    const removeTask = (taskId:string) => props.removeTask(taskId,props.id)
-    const onChangeHandler = (taskId:string,newIsDoneValue:boolean) => {
-        props.changeTaskStatus(taskId, newIsDoneValue,props.id);
-    }
-    const onTitleChangeHandler = (newValue: string,taskId:string) => {
-        props.changeTaskTitle(taskId, newValue,props.id);
-    }
+    const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id),[props.removeTask,props.id])
+    const onStatusChangeHandler = useCallback((taskId: string, newIsDoneValue: boolean) => {
+        props.changeTaskStatus(taskId, newIsDoneValue, props.id);
+    },[props.changeTaskStatus,props.id])
+    const onTitleChangeHandler = useCallback((newValue: string, taskId: string) => {
+        props.changeTaskTitle(taskId, newValue, props.id);
+    },[props.changeTaskTitle,props.id])
 
     return <div>
         <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
@@ -77,15 +77,16 @@ export const Todolist = memo((props: PropsType) => {
         <AddItemForm addItem={addTask}/>
         <div>
             {tasksForTodolist.map(t => {
-                return <Task changeTaskStatus={onChangeHandler}
-                          task={t}
-                          removeTask={removeTask}
-                          changeTaskTitle={onTitleChangeHandler}
-                          />
-                })}
+                return <Task key={t.id}
+                    changeTaskStatus={onStatusChangeHandler}
+                             task={t}
+                             removeTask={removeTask}
+                             changeTaskTitle={onTitleChangeHandler}
+                />
+            })}
         </div>
         <div style={{paddingTop: "10px"}}>
-                        <ButtonWithMemo btnTitle={"All"}
+            <ButtonWithMemo btnTitle={"All"}
                             variant={props.filter === 'all' ? 'outlined' : 'text'}
                             onClick={onAllClickHandler}
                             color={'inherit'}
