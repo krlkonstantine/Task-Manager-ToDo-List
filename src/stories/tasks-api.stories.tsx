@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios"
 import {todolistApi} from "../api/todolist-api";
+import {tasksApi} from "../api/tasks-api";
 
 export default {
     title: 'API'
 }
-const settings = {
-    withCredentials: true,
-    headers: {
-        'API-KEY': '6e490809-b79a-461b-a16b-15a2bab53f33'
-    }
-}
 
-export const GetTodolists = () => {
+
+export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         // здесь мы будем делать запрос и ответ закидывать в стейт.
         // который в виде строки будем отображать в div-ке
-        todolistApi.getTodolists()
+        const todolistId: string = 'be056ba1-f975-40a6-be7e-b11d215e5be3'
+        tasksApi.getTasks(todolistId)
             .then((res) => {
                 setState(res)
             })
@@ -25,11 +22,12 @@ export const GetTodolists = () => {
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
-export const CreateTodolist = () => {
+export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todoTitle: string = "What to EAT"
-        todolistApi.createTodolist(todoTitle)
+        const todolistId: string = 'be056ba1-f975-40a6-be7e-b11d215e5be3'
+        const newTaskTitle: string = "Draw a car"
+        tasksApi.createTask(todolistId,newTaskTitle)
             .then((res) =>{
                 setState(res.data)
             })
@@ -37,22 +35,24 @@ export const CreateTodolist = () => {
 
     return <div>{JSON.stringify(state)}</div>
 }
-export const DeleteTodolist = () => {
+export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId: string = '781c30fa-309f-4cee-87ec-973b6a8459b3'
-        const data = todolistApi.deleteTodolist(todolistId)
+        const todolistId: string = 'be056ba1-f975-40a6-be7e-b11d215e5be3'
+        const taskToBeDeletedId: string = "8d0cdcbd-f2f7-44fc-ba7c-571f28ad7e98"
+        const data = tasksApi.deleteTask(todolistId,taskToBeDeletedId)
         setState(data)
     }, [])
 
     return <div>{JSON.stringify(state)}</div>
 }
-export const UpdateTodolistTitle = () => {
+export const UpdateTaskTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todoId: string = '781c30fa-309f-4cee-87ec-973b6a8459b3'
-        const newTodoTitle: string = "THIS WILL BEee DELETED"
-        const data = todolistApi.updateTodolist(todoId, newTodoTitle)
+        const todolistId: string = 'be056ba1-f975-40a6-be7e-b11d215e5be3'
+        const taskToBeRenamedId: string = "e59473a5-7b11-48b2-9a59-b00892c797ab"
+        const newTaskTitle: string = "Draw a kitten!"
+        const data = tasksApi.updateTask(todolistId,taskToBeRenamedId, newTaskTitle)
         setState(data)
     }, [])
 
