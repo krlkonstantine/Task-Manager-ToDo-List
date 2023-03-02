@@ -23,8 +23,8 @@ export const todolistApi = {
             .then((res) => res.data)
     },
 
-    updateTodolist<ResponseType>(todoId: string, title: string) {
-        return instance.put(`todo-lists/${todoId}`, {title})
+    updateTodolist(todoId: string, title: string) {
+        return instance.put<ResponseType>(`todo-lists/${todoId}`, {title})
             .then((res) => res.data)
 
     },
