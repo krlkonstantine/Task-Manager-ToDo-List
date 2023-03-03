@@ -17,17 +17,17 @@ export const tasksApi = {
             .then((res) => res.data)
     },
 
-    createTask(todolistId: string,title: string) {
-        return instance.post<ResponseType<{item:TaskType}>>(`todo-lists/${todolistId}/tasks`, {title})
+    createTask(todolistId: string, title: string) {
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title})
             .then((res) => res.data)
     },
 
-    deleteTask(todolistId: string,id: string) {
+    deleteTask(todolistId: string, id: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${id}`)
             .then((res) => res.data)
     },
 
-    updateTask(todolistId: string,taskId: string, title: string) {
+    updateTask(todolistId: string, taskId: string, title: string) {
         return instance.put<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`, {title})
             .then((res) => res.data)
 
@@ -39,17 +39,32 @@ type ResponseType<T = {}> = {
     messages: string[]
     data: T
 }
-type TaskType = {
+export type TaskType = {
     description: string
     title: string
     completed: boolean
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
     id: string
     todoListId: string
     order: number
     addedDate: string
-
 }
+
+export enum TaskStatuses {
+    New,
+    InProgress,
+    Completed,
+    Draft
+}
+
+export enum TaskPriorities {
+    Low,
+    Middle,
+    High,
+    Urgent,
+    Later
+}
+

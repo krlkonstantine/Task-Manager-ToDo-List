@@ -16,6 +16,7 @@ const instance = axios.create({
     }
 })
 
+
 export const todolistApi = {
 
     getTodolists() {
@@ -47,9 +48,15 @@ type ResponseType<T = {}> = {
     data: T
 }
 
-type TodolistType = {
+export type TodolistType = {
     id: string
-    addedDate: string
-    order: number
     title: string
+    addedDate: string
+    description:string
+    order: number
+    /*status:number
+    priority:number
+    startDate:string
+    deadline:string
+    todolistId:string*/
 }
