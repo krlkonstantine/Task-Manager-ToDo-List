@@ -54,10 +54,10 @@ export type TaskType = {
 }
 
 export enum TaskStatuses {
-    New,
-    InProgress,
-    Completed,
-    Draft
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
 }
 
 export enum TaskPriorities {
