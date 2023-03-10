@@ -22,8 +22,8 @@ import {
 import {
     addTaskAC,
     changeTaskStatusAC,
-    changeTaskTitleAC,
-    deleteTaskTC,
+    changeTaskTitleAC, createTaskTC,
+    deleteTaskTC, updateTaskTC,
 } from './state/tasks-reducer';
 import {useAppDispatch, useAppSelector} from './state/store';
 import {TaskStatuses, TaskType} from './api/todolists-api'
@@ -51,13 +51,13 @@ function App() {
     }, []);
 
     const addTask = useCallback(function (title: string, todolistId: string) {
-        const action = addTaskAC(title, todolistId);
-        dispatch(action);
+        //const action = addTaskAC(todolistId);
+        dispatch(createTaskTC(todolistId, title));
     }, []);
 
     const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-        const action = changeTaskStatusAC(id, status, todolistId);
-        dispatch(action);
+        //const action = changeTaskStatusAC(id, status, todolistId);
+        dispatch(updateTaskTC(todolistId, id, status));
     }, []);
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
