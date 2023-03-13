@@ -99,5 +99,16 @@ export const getTodosTC = () => (dispatch: Dispatch) => {
         })
 }
 
+export const deleteTodoTC = (id:string) => (dispatch: Dispatch) => {
+    todolistsAPI.deleteTodolist(id)
+        .then((res)=>{
+            dispatch(removeTodolistAC(id))
+        })
+}
 
-
+export const addTodoTC = (title:string) => (dispatch: Dispatch) => {
+    todolistsAPI.createTodolist(title)
+        .then((res)=>{
+            dispatch(addTodolistAC(title))
+        })
+}

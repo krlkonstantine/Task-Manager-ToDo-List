@@ -12,9 +12,9 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {Menu} from '@mui/icons-material';
 import {
-    addTodolistAC,
+    addTodolistAC, addTodoTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, deleteTodoTC,
     FilterValuesType, getTodosTC,
     removeTodolistAC,
     TodolistDomainType
@@ -71,8 +71,8 @@ function App() {
     }, []);
 
     const removeTodolist = useCallback(function (id: string) {
-        const action = removeTodolistAC(id);
-        dispatch(action);
+        //const action = removeTodolistAC(id);
+        dispatch(deleteTodoTC(id));
     }, []);
 
     const changeTodolistTitle = useCallback(function (id: string, title: string) {
@@ -81,8 +81,8 @@ function App() {
     }, []);
 
     const addTodolist = useCallback((title: string) => {
-        const action = addTodolistAC(title);
-        dispatch(action);
+        //const action = addTodolistAC(title);
+        dispatch(addTodoTC(title));
     }, [dispatch]);
 
     return (
