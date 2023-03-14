@@ -23,12 +23,8 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return state.map((tdl) => tdl.id === action.id ? {...tdl,title:action.title} : tdl)
         }
         case 'CHANGE-TODOLIST-FILTER': {
-            const todolist = state.find(tl => tl.id === action.id);
-            if (todolist) {
-                // если нашёлся - изменим ему заголовок
-                todolist.filter = action.filter;
-            }
-            return [...state]
+            return state.map((tdl) => tdl.id === action.filter ? {...tdl,filter<ActionsType>:action.filter} : tdl)
+
         }
         case "GET-TODOLISTS" : {
             return action.todos.map((tdl) => ({...tdl, filter: 'all'}))
@@ -51,25 +47,25 @@ export const getTodolistsAC = (todos: TodolistType[]) =>
     ({type: 'GET-TODOLISTS', todos} as const)
 
 //thunks
-export const getTodosTC = () => (dispatch: Dispatch) => {
+export const getTodosTC = () => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.getTodolists()
         .then((res) => {
             dispatch(getTodolistsAC(res.data))
         })
 }
-export const deleteTodoTC = (id: string) => (dispatch: Dispatch) => {
+export const deleteTodoTC = (id: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.deleteTodolist(id)
         .then((res) => {
             dispatch(removeTodolistAC(id))
         })
 }
-export const addTodoTC = (title: string) => (dispatch: Dispatch) => {
+export const addTodoTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.createTodolist(title)
         .then((res) => {
             dispatch(addTodolistAC(title))
         })
 }
-export const renameTodoTC = (id: string, title: string) => (dispatch: Dispatch) => {
+export const renameTodoTC = (id: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
     todolistsAPI.updateTodolist(id, title)
         .then((res) => {
             dispatch(changeTodolistTitleAC(id, title))
