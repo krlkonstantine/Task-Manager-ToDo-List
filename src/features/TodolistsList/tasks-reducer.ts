@@ -81,19 +81,23 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
     dispatch(setLoadingStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
-                if (res.data.resultCode === ResultCode.SUCCEEDED) {
-                    dispatch(addTaskAC(res.data.data.item))
-                    dispatch(setLoadingStatusAC('succeeded'))
+            if (res.data.resultCode === ResultCode.SUCCEEDED) {
+                dispatch(addTaskAC(res.data.data.item))
+                dispatch(setLoadingStatusAC('succeeded'))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setErrorAC(res.data.messages[0]))
-                    } else {
-                        dispatch(setErrorAC('Unknown error occurred'))
-                    }
-                    dispatch(setErrorAC('Failed'))
+                    dispatch(setErrorAC('Unknown error occurred'))
                 }
+                dispatch(setErrorAC('Failed'))
             }
-        )
+        })
+        .catch((e) => {
+            dispatch(setErrorAC(e.message))
+            dispatch(setLoadingStatusAC('failed'))
+        })
+
 }
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
     (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
@@ -121,9 +125,22 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
 
         todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then(res => {
-                const action = updateTaskAC(taskId, domainModel, todolistId)
-                dispatch(action)
-                dispatch(setLoadingStatusAC('idle'))
+                if (res.data.resultCode === ResultCode.SUCCEEDED) {
+                    dispatch(setLoadingStatusAC('succeeded'))
+                    dispatch(setErrorAC(null))
+                    dispatch(updateTaskAC(taskId, domainModel, todolistId))
+                } else {
+                    if (res.data.messages.length) {
+                        dispatch(setErrorAC(res.data.messages[0]))
+                    } else {
+                        dispatch(setErrorAC('Unknown error occurred'))
+                    }
+                    dispatch(setErrorAC('Failed'))
+                }
+            })
+            .catch(e => {
+                dispatch(setErrorAC(e.message))
+                dispatch(setLoadingStatusAC('failed'))
             })
     }
 
