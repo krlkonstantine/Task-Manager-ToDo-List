@@ -10,6 +10,7 @@ import {
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
 import {setErrorAC, SetErrorACType, setLoadingStatusAC, SetLoadingStatusACType} from "../../app/app-reducer";
+import {handleNetworkServerError, handleServerAppError} from "../../utils/error-utils";
 
 const initialState: TasksStateType = {}
 
@@ -85,12 +86,7 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
                 dispatch(addTaskAC(res.data.data.item))
                 dispatch(setLoadingStatusAC('succeeded'))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setErrorAC(res.data.messages[0]))
-                } else {
-                    dispatch(setErrorAC('Unknown error occurred'))
-                }
-                dispatch(setErrorAC('Failed'))
+                handleServerAppError(res.data,dispatch)
             }
         })
         .catch((e) => {
@@ -139,8 +135,9 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                 }
             })
             .catch(e => {
-                dispatch(setErrorAC(e.message))
-                dispatch(setLoadingStatusAC('failed'))
+                handleNetworkServerError(dispatch,e)
+                /*dispatch(setErrorAC(e.message))
+                dispatch(setLoadingStatusAC('failed'))*/
             })
     }
 

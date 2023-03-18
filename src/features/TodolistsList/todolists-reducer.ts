@@ -7,6 +7,7 @@ import {
     setLoadingStatusAC,
     SetLoadingStatusACType
 } from "../../app/app-reducer";
+import {handleServerAppError} from "../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -86,8 +87,12 @@ export const addTodolistTC = (title: string) => {
 
         todolistsAPI.createTodolist(title)
             .then((res) => {
-                dispatch(addTodolistAC(res.data.data.item))
-                dispatch(setLoadingStatusAC('succeeded'))
+                if(res.data.resultCode === ResultCode.SUCCEEDED) {
+                    dispatch(addTodolistAC(res.data.data.item))
+                    dispatch(setLoadingStatusAC('succeeded'))
+                } else {
+                    handleServerAppError<{item:TodolistType}>(res.data, dispatch)
+                }
             })
     }
 }
