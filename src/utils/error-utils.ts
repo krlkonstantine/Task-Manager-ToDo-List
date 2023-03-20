@@ -21,3 +21,8 @@ export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: ErrorUt
 }
 
 type ErrorUtilsDispatchType = Dispatch<AppActionsType>
+
+export type CustomErrorType = {
+    messages: string[]
+    fieldError:string
+}

@@ -7,6 +7,7 @@ import {RequestStatusType} from "../../app/app-reducer";
 type AddItemFormPropsType = {
     addItem: (title: string) => void
     disabled?: boolean
+    entityStatus?:RequestStatusType
 }
 
 export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
@@ -47,7 +48,7 @@ export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
                    helperText={error}
                    disabled={props.disabled}
         />
-        <IconButton disabled={props.disabled} color="primary" onClick={addItem}>
+        <IconButton disabled={props.entityStatus === 'loading'} color="primary" onClick={addItem}>
             <AddBox/>
         </IconButton>
     </div>
