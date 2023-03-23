@@ -34,6 +34,7 @@ export const Login = () => {
 
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
+            formik.resetForm()
         },
     })
 
@@ -68,11 +69,12 @@ export const Login = () => {
 
                         <FormControlLabel label={'Remember me'}
                                           control={<Checkbox
-                                              name={'rememberMe'}
-                                              value={formik.values.rememberMe}
-                                              onChange={formik.handleChange}
-                                          />}/>
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>
+                                              checked={formik.values.rememberMe}
+                                              {...formik.getFieldProps('rememberMe')}
+                                              />}/>
+                        <Button type={'submit'}
+                                variant={'contained'}
+                                color={'primary'}>
                             Login
                         </Button>
                     </FormGroup>
