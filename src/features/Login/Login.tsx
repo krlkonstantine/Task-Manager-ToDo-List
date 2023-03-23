@@ -52,7 +52,7 @@ export const Login = () => {
                                    name={"email"}
                                    onChange={formik.handleChange}
                                    value={formik.values.email}/>
-                        {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+                        {formik.errors.email ? <div style={{color:'red'}}>{formik.errors.email}</div> : null}
 
                         <TextField type="password"
                                    label="Password"
@@ -61,7 +61,7 @@ export const Login = () => {
                                    value={formik.values.password}
                                    onChange={formik.handleChange}
                         />
-                        {formik.errors.password && <div>{formik.errors.password}</div>}
+                        {formik.errors.password && <div style={{color:'red'}}>{formik.errors.password}</div>}
 
                         <FormControlLabel label={'Remember me'}
                                           control={<Checkbox
