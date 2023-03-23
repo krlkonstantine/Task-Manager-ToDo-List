@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
 import {Menu} from '@mui/icons-material';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
+import {Login} from "../features/Login/Login";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu">
                         <Menu/>
+
                     </IconButton>
                     <Typography variant="h6">
                         News
@@ -34,6 +36,7 @@ function App() {
             <Container fixed>
                 <TodolistsList/>
             </Container>
+            <Login/>
         </div>
     )
 }
