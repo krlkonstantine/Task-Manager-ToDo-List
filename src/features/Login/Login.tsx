@@ -23,8 +23,10 @@ export const Login = () => {
                     <p>Password: free</p>
                 </FormLabel>
                 <FormGroup>
-                    <TextField label="Email" margin="normal"/>
-                    <TextField type="password" label="Password"
+                    <TextField label="Email"
+                               margin="normal"/>
+                    <TextField type="password"
+                               label="Password"
                                margin="normal"
                     />
                     <FormControlLabel label={'Remember me'} control={<Checkbox/>}/>
