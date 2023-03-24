@@ -5,16 +5,23 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
-        'API-KEY': '5fc11a34-7258-4926-8c00-91db4f940cfd'
+        'API-KEY': '49f982f5-d203-4324-b145-d05d3387d5eb'
     }
 })
+
+
 //auth
 export const authAPI = {
+    me(){
+        return instance.get<ResponseType<{ userId:number }>>('auth/me')
+            .then(res => res.data)
+    },
     login(data: FormDataType){
         return instance.post<ResponseType<{ userId:number }>>('auth/login',data)
             .then(res => res.data)
     }
 }
+
 
 // api
 export const todolistsAPI = {
