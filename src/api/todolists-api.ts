@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import {FormDataType} from "../features/Login/Login";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -7,6 +8,13 @@ const instance = axios.create({
         'API-KEY': '5fc11a34-7258-4926-8c00-91db4f940cfd'
     }
 })
+//auth
+export const authAPI = {
+    login(data: FormDataType){
+        return instance.post<ResponseType<{ userId:number }>>('auth/login',data)
+            .then(res => res.data)
+    }
+}
 
 // api
 export const todolistsAPI = {
@@ -56,6 +64,11 @@ export enum TaskStatuses {
     InProgress = 1,
     Completed = 2,
     Draft = 3
+}
+export enum ResultLoginCode {
+    Ok = 0,
+    Error = 1,
+    Captcha = 10,
 }
 
 export enum TaskPriorities {

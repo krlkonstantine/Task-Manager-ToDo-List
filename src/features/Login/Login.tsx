@@ -8,9 +8,14 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
+import {useAppDispatch} from "../../app/store";
+import {loginTC} from "./auth-reducer";
 
 
 export const Login = () => {
+
+    const dispatch = useAppDispatch()
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -33,7 +38,7 @@ export const Login = () => {
         },
 
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            dispatch(loginTC(values))
             formik.resetForm()
         },
     })
@@ -71,7 +76,7 @@ export const Login = () => {
                                           control={<Checkbox
                                               checked={formik.values.rememberMe}
                                               {...formik.getFieldProps('rememberMe')}
-                                              />}/>
+                                          />}/>
                         <Button type={'submit'}
                                 variant={'contained'}
                                 color={'primary'}>
@@ -89,4 +94,10 @@ type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
+}
+
+export type FormDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
 }
