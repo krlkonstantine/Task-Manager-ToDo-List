@@ -56,7 +56,6 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
         }
     })
 }
-
 export const logoutTC = () => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
