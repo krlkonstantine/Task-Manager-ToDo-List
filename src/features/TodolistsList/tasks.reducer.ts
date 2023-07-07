@@ -4,6 +4,7 @@ import {
   TaskStatuses,
   TaskType,
   todolistsAPI,
+  UpdateTaskArgType,
   UpdateTaskModelType,
 } from "api/todolists-api";
 import { AppDispatch, AppThunk } from "app/store";
@@ -25,7 +26,7 @@ const slice = createSlice({
       const index = tasks.findIndex((t) => t.id === action.payload.taskId);
       if (index !== -1) tasks.splice(index, 1);
     },
-    updateTask: (
+    /*updateTask: (
       state,
       action: PayloadAction<{
         taskId: string;
@@ -38,10 +39,10 @@ const slice = createSlice({
       if (index !== -1) {
         tasks[index] = { ...tasks[index], ...action.payload.model };
       }
-    },
+    },*/
     /*setTasks: (state, action: PayloadAction<{ tasks: Array<TaskType>; todolistId: string }>) => {
-                      state[action.payload.todolistId] = action.payload.tasks;
-                    },*/
+                                  state[action.payload.todolistId] = action.payload.tasks;
+                                },*/
     //этот редюсер нам больше не нужен, мы будем использовать логику в экстраредюсере
   },
   extraReducers: (builder) => {
@@ -49,11 +50,19 @@ const slice = createSlice({
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state[action.payload.todolistId] = action.payload.tasks;
       })
+
+      .addCase(fetchTasks.rejected, (state, action) => {})
       .addCase(addTask.fulfilled, (state, action) => {
         const tasks = state[action.payload.task.todoListId];
         tasks.unshift(action.payload.task);
       })
-      .addCase(fetchTasks.rejected, (state, action) => {})
+      .addCase(updateTask.fulfilled, (state, action) => {
+        const tasks = state[action.payload.todolistId];
+        const index = tasks.findIndex((t) => t.id === action.payload.taskId);
+        if (index !== -1) {
+          tasks[index] = { ...tasks[index], ...action.payload.model };
+        }
+      })
       .addCase(todolistsActions.addTodolist, (state, action) => {
         state[action.payload.todolist.id] = [];
       })
@@ -91,7 +100,6 @@ const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[]; todolistId: string }
     }
   }
 );
-//здесь вместо объекта второго арг { todolistId: string; title: string } просто указываем просто тип
 const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArgType>("tasks/addTask", async (arg, thunkApi) => {
   const { dispatch, rejectWithValue } = thunkApi;
   try {
@@ -112,14 +120,46 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArgType>("task
   }
 });
 
-export const removeTaskTC =
-  (taskId: string, todolistId: string): AppThunk =>
-  (dispatch) => {
-    todolistsAPI.deleteTask(todolistId, taskId).then(() => {
-      dispatch(tasksActions.removeTask({ taskId, todolistId }));
-    });
-  };
+const updateTask = createAppAsyncThunk<
+  { taskId: string; model: UpdateDomainTaskModelType; todolistId: string },
+  UpdateTaskArgType
+>("tasks/updateTask", async (arg, thunkApi) => {
+  const { dispatch, rejectWithValue, getState } = thunkApi;
+  const { taskId, domainModel, todolistId } = arg;
+  try {
+    const state = getState();
+    const task = state.tasks[todolistId].find((t) => t.id === taskId);
+    if (!task) {
+      //throw new Error("task not found in the state");
+      console.warn("task not found in the state");
+      return rejectWithValue(null);
+    }
 
+    const apiModel: UpdateTaskModelType = {
+      deadline: task.deadline,
+      description: task.description,
+      priority: task.priority,
+      startDate: task.startDate,
+      title: task.title,
+      status: task.status,
+      ...domainModel,
+    };
+
+    const res = await todolistsAPI.updateTask(todolistId, taskId, apiModel);
+    if (res.data.resultCode === 0) {
+      //dispatch(tasksActions.updateTask({ taskId, model: arg.domainModel, todolistId }));
+      return { taskId, model: arg.domainModel, todolistId };
+    } else {
+      handleServerAppError(res.data, dispatch);
+      return rejectWithValue(null);
+    }
+  } catch (e) {
+    handleServerNetworkError(e, dispatch);
+    return rejectWithValue(null);
+  }
+});
+
+/*
 export const updateTaskTC =
   (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string): AppThunk =>
   (dispatch, getState) => {
@@ -154,10 +194,19 @@ export const updateTaskTC =
         handleServerNetworkError(error, dispatch);
       });
   };
+*/
+
+export const removeTaskTC =
+  (taskId: string, todolistId: string): AppThunk =>
+  (dispatch) => {
+    todolistsAPI.deleteTask(todolistId, taskId).then(() => {
+      dispatch(tasksActions.removeTask({ taskId, todolistId }));
+    });
+  };
 
 export const tasksReducer = slice.reducer;
 export const tasksActions = slice.actions;
-export const tasksThunks = { fetchTasks, addTask };
+export const tasksThunks = { fetchTasks, addTask, updateTask };
 
 // types
 export type UpdateDomainTaskModelType = {

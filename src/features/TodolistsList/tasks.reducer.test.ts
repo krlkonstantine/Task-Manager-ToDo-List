@@ -126,11 +126,16 @@ test("correct task should be added to correct array", () => {
   expect(endState["todolistId2"][0].status).toBe(TaskStatuses.New);
 });
 
+const task2 = {
+  taskId: "2",
+  model: { status: TaskStatuses.New },
+  todolistId: "todolistId2",
+};
 test("status of specified task should be changed", () => {
-  const action = tasksActions.updateTask({
-    taskId: "2",
-    model: { status: TaskStatuses.New },
-    todolistId: "todolistId2",
+  const action = tasksThunks.updateTask.fulfilled(task2, "requestId", {
+    taskId: task2.taskId,
+    todolistId: task2.todolistId,
+    domainModel: task2.model,
   });
 
   const endState = tasksReducer(startState, action);
@@ -140,7 +145,13 @@ test("status of specified task should be changed", () => {
 });
 
 test("title of specified task should be changed", () => {
-  const action = tasksActions.updateTask({ taskId: "2", model: { title: "yogurt" }, todolistId: "todolistId2" });
+  const task3 = { taskId: "2", model: { title: "yogurt" }, todolistId: "todolistId2" };
+
+  const action = tasksThunks.updateTask.fulfilled(task3, "requestid", {
+    taskId: task3.taskId,
+    todolistId: task3.todolistId,
+    domainModel: task3.model,
+  });
 
   const endState = tasksReducer(startState, action);
 
