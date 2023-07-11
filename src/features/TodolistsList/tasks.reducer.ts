@@ -70,7 +70,7 @@ const slice = createSlice({
         const index = tasks.findIndex((t) => t.id === action.payload.taskId);
         if (index !== -1) tasks.splice(index, 1);
       })
-      .addCase(todolistsActions.addTodolist, (state, action) => {
+      .addCase(todolistThunks.addTodolist.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = [];
       })
       .addCase(todolistThunks.deleteTodolist.fulfilled, (state, action) => {

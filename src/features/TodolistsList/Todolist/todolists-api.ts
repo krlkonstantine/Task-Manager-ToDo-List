@@ -6,26 +6,21 @@ import {
   TaskType,
   TodolistType,
   UpdateTaskArgType,
-  UpdateTaskModelType,
 } from "common/api/types-api";
 
 // api
 export const todolistsAPI = {
   getTodolists() {
-    const promise = commonApi.get<TodolistType[]>("todo-lists");
-    return promise;
+    return commonApi.get<TodolistType[]>("todo-lists");
   },
-  createTodolist(title: string) {
-    const promise = commonApi.post<ResponseType<any>>("todo-lists", { title: title });
-    return promise;
+  createTodolist(arg: { title: string }) {
+    return commonApi.post<ResponseType<any>>("todo-lists", { title: arg.title });
   },
-  deleteTodolist(id: string) {
-    const promise = commonApi.delete<ResponseType>(`todo-lists/${id}`);
-    return promise;
+  deleteTodolist(arg: { id: string }) {
+    return commonApi.delete<ResponseType>(`todo-lists/${arg.id}`);
   },
-  updateTodolist(id: string, title: string) {
-    const promise = commonApi.put<ResponseType>(`todo-lists/${id}`, { title: title });
-    return promise;
+  updateTodolist(arg: { id: string; title: string }) {
+    return commonApi.put<ResponseType>(`todo-lists/${arg.id}`, { title: arg.title });
   },
   getTasks(todolistId: string) {
     return commonApi.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`);
