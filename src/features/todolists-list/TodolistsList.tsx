@@ -38,14 +38,6 @@ export const TodolistsList = () => {
     addTaskThunk({ title, todolistId });
   }, []);
 
-  const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
-    updateTask({ taskId, domainModel: { status }, todolistId });
-  }, []);
-
-  const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
-    updateTask({ taskId, domainModel: { title }, todolistId });
-  }, []);
-
   const changeFilter = useCallback(function (filter: FilterValuesType, id: string) {
     changeTodolistFilter({ id, filter });
   }, []);
@@ -83,9 +75,7 @@ export const TodolistsList = () => {
                   tasks={allTodolistTasks}
                   changeFilter={changeFilter}
                   addTask={addTask}
-                  changeTaskStatus={changeStatus}
                   removeTodolist={removeTodolist}
-                  changeTaskTitle={changeTaskTitle}
                   changeTodolistTitle={changeTodolistTitle}
                 />
               </Paper>
