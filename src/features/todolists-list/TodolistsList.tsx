@@ -32,9 +32,9 @@ export const TodolistsList = () => {
         fetchTodolists();
     }, []);
 
-    const addTodolist = useCallback((title: string) => {
-        addTodolistThunk(title);
-    }, []);
+    const addTodolist = (title: string) => {
+       return addTodolistThunk(title)
+    }
 
     if (!isLoggedIn) {
         return <Navigate to={"/login"}/>;

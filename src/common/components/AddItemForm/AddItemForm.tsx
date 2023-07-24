@@ -13,7 +13,7 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false }: A
 
   const addItemHandler = () => {
     if (title.trim() !== "") {
-      addItem(title);
+      addItem(title)
       setTitle("");
     } else {
       setError("Title is required");
