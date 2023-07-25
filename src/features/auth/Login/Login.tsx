@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {FormikHelpers, useFormik} from "formik";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useAppDispatch} from "common/hooks";
-import {selectIsLoggedIn} from "features/auth/auth.selectors";
+import {selectCaptchaUrl, selectIsLoggedIn} from "features/auth/auth.selectors";
 import {authThunks} from "features/auth/auth.reducer";
 import {LoginParamsType} from "features/auth/auth.api";
 import {ResponseType} from "common/types";
 import s from "./styles.module.css";
+import ReCAPTCHA from "react-google-recaptcha";
 
 type FormikErrorType = Partial<Omit<LoginParamsType,'captcha'>>
 
@@ -18,6 +19,11 @@ export const Login = () => {
     const dispatch = useAppDispatch();
 
     const isLoggedIn = useSelector(selectIsLoggedIn);
+    const captchaUrl = useSelector(selectCaptchaUrl);
+
+    useEffect(()=>{
+
+    },[captchaUrl])
 
     const formik = useFormik({
         validate: (values) => {
@@ -40,6 +46,7 @@ export const Login = () => {
             email: "",
             password: "",
             rememberMe: false,
+            captcha: "",
         },
         onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
             dispatch(authThunks.login(values))
@@ -88,6 +95,16 @@ export const Login = () => {
                                 control={<Checkbox {...formik.getFieldProps("rememberMe")}
                                                    checked={formik.values.rememberMe}/>}
                             />
+                            { captchaUrl && <span>{captchaUrl}</span>}
+                            { captchaUrl && <img src={captchaUrl} alt="captchaImage"/>}
+
+                            <TextField type="text" label="Captcha"
+                                       margin="normal" {...formik.getFieldProps("captcha")} />
+                            {/*<ReCAPTCHA
+                                sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                                onChange={onChange}
+                            />*/}
+
                             <Button
                                 type={"submit"}
                                 variant={"contained"}

@@ -2275,6 +2275,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-google-recaptcha@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@types/react-google-recaptcha/-/react-google-recaptcha-2.1.5.tgz#af157dc2e4bde3355f9b815a64f90e85cfa9df8b"
+  integrity sha512-iWTjmVttlNgp0teyh7eBXqNOQzVq2RWNiFROWjraOptRnb1OcHJehQnji0sjqIRAk9K0z8stjyhU+OLpPb0N6w==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-is@^16.7.1 || ^17.0.0":
   version "17.0.3"
   resolved "https://registry.yarnpkg.com/@types/react-is/-/react-is-17.0.3.tgz#2d855ba575f2fc8d17ef9861f084acc4b90a137a"
@@ -2616,6 +2623,11 @@
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
+
+"@yandex/smart-captcha@^2.4.9":
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/@yandex/smart-captcha/-/smart-captcha-2.4.9.tgz#e73b586aa92a488f4d885e6f7f5616cb4c00d115"
+  integrity sha512-JtM/Tv/qMgtujgwHTeRZNZYhLPOhW9zDdGPyYlu9G7NFpRKrG2NY1fvcpb+2FxVuw/ekMfaVfjz/LXXAWP+TeA==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
