@@ -7,7 +7,7 @@ import { ErrorSnackbar } from "common/components";
 import { useActions } from "common/hooks";
 import { selectIsLoggedIn } from "features/auth/auth.selectors";
 import { selectIsInitialized } from "app/app.selectors";
-import { authThunks } from "features/auth/auth.reducer";
+import { authThunks } from "features/auth/auth.slice";
 import {AppBarComponent} from "app/app-bar/app-bar";
 import {ContainerForApp} from "app/container/container";
 

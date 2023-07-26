@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Menu} from "@mui/icons-material";
 import {useActions} from "common/hooks";
-import {authThunks} from "features/auth/auth.reducer";
+import {authThunks} from "features/auth/auth.slice";
 import {
     AppBar,
     Button,

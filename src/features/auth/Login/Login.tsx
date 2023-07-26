@@ -5,14 +5,13 @@ import {Navigate} from "react-router-dom";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useAppDispatch} from "common/hooks";
 import {selectCaptchaUrl, selectIsLoggedIn} from "features/auth/auth.selectors";
-import {authThunks} from "features/auth/auth.reducer";
+import {authThunks} from "features/auth/auth.slice";
 import {LoginParamsType} from "features/auth/auth.api";
 import {ResponseType} from "common/types";
 import s from "./styles.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
 
-type FormikErrorType = Partial<Omit<LoginParamsType,'captcha'>>
-
+type FormikErrorType = Partial<Omit<LoginParamsType, 'captcha'>>
 
 
 export const Login = () => {
@@ -21,9 +20,13 @@ export const Login = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const captchaUrl = useSelector(selectCaptchaUrl);
 
-    useEffect(()=>{
-
-    },[captchaUrl])
+    // useEffect(() => {
+    //     alert(captchaUrl)
+    //     console.log(captchaUrl)
+    //     function reload() {
+    //         window.location.reload();
+    //     }
+    // }, [captchaUrl])
 
     const formik = useFormik({
         validate: (values) => {
@@ -33,7 +36,6 @@ export const Login = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = "Invalid email address";
             }
-
             if (!values.password) {
                 errors.password = "Required";
             } else if (values.password.length < 3) {
@@ -95,8 +97,7 @@ export const Login = () => {
                                 control={<Checkbox {...formik.getFieldProps("rememberMe")}
                                                    checked={formik.values.rememberMe}/>}
                             />
-                            { captchaUrl && <span>{captchaUrl}</span>}
-                            { captchaUrl && <img src={captchaUrl} alt="captchaImage"/>}
+                            {captchaUrl && <img src={captchaUrl} alt="captchaImage"/>}
 
                             <TextField type="text" label="Captcha"
                                        margin="normal" {...formik.getFieldProps("captcha")} />
