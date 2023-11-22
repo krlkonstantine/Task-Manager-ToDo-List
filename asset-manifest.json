@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Task-Manager-ToDo-List/static/css/main.97fe71eb.css",
+    "main.js": "/Task-Manager-ToDo-List/static/js/main.53851737.js",
+    "index.html": "/Task-Manager-ToDo-List/index.html",
+    "main.97fe71eb.css.map": "/Task-Manager-ToDo-List/static/css/main.97fe71eb.css.map",
+    "main.53851737.js.map": "/Task-Manager-ToDo-List/static/js/main.53851737.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.97fe71eb.css",
+    "static/js/main.53851737.js"
+  ]
+}
