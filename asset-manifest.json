@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/krlkonstantine/Task-Manager-ToDo-List/static/css/main.97fe71eb.css",
-    "main.js": "/krlkonstantine/Task-Manager-ToDo-List/static/js/main.577d9d3b.js",
+    "main.js": "/krlkonstantine/Task-Manager-ToDo-List/static/js/main.53851737.js",
     "index.html": "/krlkonstantine/Task-Manager-ToDo-List/index.html",
     "main.97fe71eb.css.map": "/krlkonstantine/Task-Manager-ToDo-List/static/css/main.97fe71eb.css.map",
-    "main.577d9d3b.js.map": "/krlkonstantine/Task-Manager-ToDo-List/static/js/main.577d9d3b.js.map"
+    "main.53851737.js.map": "/krlkonstantine/Task-Manager-ToDo-List/static/js/main.53851737.js.map"
   },
   "entrypoints": [
     "static/css/main.97fe71eb.css",
-    "static/js/main.577d9d3b.js"
+    "static/js/main.53851737.js"
   ]
 }
