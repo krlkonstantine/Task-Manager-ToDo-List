@@ -1,6 +1,6 @@
 {
   "name": "it-incubator-todolist-ts",
-  "homepage": "https://krlkonstantine.github.io/Task-Manager-ToDo-List",
+  "homepage": "https://krlkonstantine.github.io/Task-Manager-ToDo-List/",
   "jest": {
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
