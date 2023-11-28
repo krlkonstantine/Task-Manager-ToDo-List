@@ -31,7 +31,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter basename={'Task-Manager-ToDo-List'}>
+    <BrowserRouter>
       <div className="App">
         <ErrorSnackbar />
         <AppBarComponent isLoggedIn={isLoggedIn}/>
