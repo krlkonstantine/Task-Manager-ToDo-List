@@ -1,13 +1,22 @@
 {
   "files": {
-    "main.css": "/krlkonstantine/Task-Manager-ToDo-List/static/css/main.97fe71eb.css",
-    "main.js": "/krlkonstantine/Task-Manager-ToDo-List/static/js/main.53851737.js",
-    "index.html": "/krlkonstantine/Task-Manager-ToDo-List/index.html",
-    "main.97fe71eb.css.map": "/krlkonstantine/Task-Manager-ToDo-List/static/css/main.97fe71eb.css.map",
-    "main.53851737.js.map": "/krlkonstantine/Task-Manager-ToDo-List/static/js/main.53851737.js.map"
+    "main.css": "/Task-Manager-ToDo-List/static/css/main.674b6137.chunk.css",
+    "main.js": "/Task-Manager-ToDo-List/static/js/main.430fbe6a.chunk.js",
+    "main.js.map": "/Task-Manager-ToDo-List/static/js/main.430fbe6a.chunk.js.map",
+    "runtime-main.js": "/Task-Manager-ToDo-List/static/js/runtime-main.8c7568c2.js",
+    "runtime-main.js.map": "/Task-Manager-ToDo-List/static/js/runtime-main.8c7568c2.js.map",
+    "static/js/2.317bd65b.chunk.js": "/Task-Manager-ToDo-List/static/js/2.317bd65b.chunk.js",
+    "static/js/2.317bd65b.chunk.js.map": "/Task-Manager-ToDo-List/static/js/2.317bd65b.chunk.js.map",
+    "index.html": "/Task-Manager-ToDo-List/index.html",
+    "precache-manifest.5aa0b6062f14868a6f5614c4c73f719c.js": "/Task-Manager-ToDo-List/precache-manifest.5aa0b6062f14868a6f5614c4c73f719c.js",
+    "service-worker.js": "/Task-Manager-ToDo-List/service-worker.js",
+    "static/css/main.674b6137.chunk.css.map": "/Task-Manager-ToDo-List/static/css/main.674b6137.chunk.css.map",
+    "static/js/2.317bd65b.chunk.js.LICENSE.txt": "/Task-Manager-ToDo-List/static/js/2.317bd65b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/css/main.97fe71eb.css",
-    "static/js/main.53851737.js"
+    "static/js/runtime-main.8c7568c2.js",
+    "static/js/2.317bd65b.chunk.js",
+    "static/css/main.674b6137.chunk.css",
+    "static/js/main.430fbe6a.chunk.js"
   ]
 }
