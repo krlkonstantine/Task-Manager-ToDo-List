@@ -10,7 +10,7 @@ import {BrowserRouter} from 'react-router-dom'
 const rerenderEntireTree = () => {
     ReactDOM.render(
         <Provider store={store}>
-            <BrowserRouter>
+            <BrowserRouter basename={'Task-Manager-ToDo-List'}>
                 <App/>
             </BrowserRouter>
         </Provider>, document.getElementById('root'))
